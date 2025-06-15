@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/entryLayout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            <EditText
+                android:id="@+id/journalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/journalTitleHint"
+                android:layout_weight="0"
+                android:layout_margin="16dp" />
+            <EditText
+                android:id="@+id/journalData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/journalDataHint"
+                android:gravity="top"
+                android:layout_weight="1"
+                android:layout_margin="16dp" />
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/submitButtonText"
+                android:layout_gravity="center"
+                android:layout_margin="16dp" />
+        </LinearLayout>
+</FrameLayout>

@@ -9,12 +9,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private Fragment entryFrag, journalsFrag, settingsFrag;
-
+    private BottomNavigationView nav;
+    public static final String ENTRY_TAG = "ENTRY";
+    public static final String JOURNALS_TAG = "JOURNALS";
+    public static final String SETTINGS_TAG = "SETTINGS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,32 +39,59 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        BottomNavigationView nav = findViewById(R.id.bottomNav);
-
+        nav = findViewById(R.id.bottomNav);
+        // Create new fragments on initial creation
         if (savedInstanceState == null) {
             entryFrag = new EntryFrag();
             journalsFrag = new JournalsFrag();
             settingsFrag = new SettingsFrag();
-
-            setCurrentFragment(entryFrag);
+            setCurrentFragment(entryFrag, ENTRY_TAG);
+        } else {
+            // Use existing fragments on resume
+            entryFrag = getSupportFragmentManager().findFragmentByTag(ENTRY_TAG);
+            journalsFrag = getSupportFragmentManager().findFragmentByTag(JOURNALS_TAG);
+            settingsFrag =getSupportFragmentManager().findFragmentByTag(SETTINGS_TAG);
         }
 
         nav.setOnItemSelectedListener(item -> {
             int itemID = item.getItemId();
             if (itemID == R.id.nav_entry)
-                setCurrentFragment(entryFrag);
+                setCurrentFragment(entryFrag, ENTRY_TAG);
             else if (itemID == R.id.nav_journal)
-                setCurrentFragment(journalsFrag);
+                setCurrentFragment(journalsFrag, JOURNALS_TAG);
             else if (itemID == R.id.nav_settings)
-                setCurrentFragment(settingsFrag);
+                setCurrentFragment(settingsFrag, SETTINGS_TAG);
             return true;
         });
     }
 
-    public void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contentFrame, fragment)
-                .commit();
+    public void setScreen(String tag) {
+        switch (tag) {
+            case ENTRY_TAG:
+                nav.setSelectedItemId(R.id.nav_entry);
+                break;
+            case JOURNALS_TAG:
+                nav.setSelectedItemId(R.id.nav_journal);
+                break;
+            case SETTINGS_TAG:
+                nav.setSelectedItemId(R.id.nav_settings);
+                break;
+        }
+    }
+
+    public void setCurrentFragment(Fragment fragment, String tag) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // Hide all non-current fragments
+        if (entryFrag != null) { transaction.hide(entryFrag); }
+        if (journalsFrag != null) { transaction.hide(journalsFrag); }
+        if (settingsFrag != null) { transaction.hide(settingsFrag); }
+
+        // Add the fragment to the fragment manager if not already added
+        if (!fragment.isAdded()) {
+            transaction.add(R.id.contentFrame, fragment, tag);
+        }
+        // Show fragment
+        transaction.show(fragment);
+        transaction.commit();
     }
 }

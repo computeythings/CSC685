@@ -36,7 +36,7 @@ public class EntryFrag extends Fragment {
                     titleField.setText("");
                     dataField.setText("");
 
-                    ((MainActivity) requireActivity()).setCurrentFragment(new JournalsFrag());
+                    ((MainActivity) requireActivity()).setScreen(MainActivity.JOURNALS_TAG);
                 } else {
                     Toast.makeText(getContext(), "Failed to save entry", Toast.LENGTH_SHORT).show();
                 }

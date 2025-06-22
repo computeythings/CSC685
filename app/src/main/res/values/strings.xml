@@ -3,4 +3,11 @@
     <string name="journalTitleHint">Title</string>
     <string name="journalDataHint">Enter journal text...</string>
     <string name="submitButtonText">Submit</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="font_size">Font Size</string>
+    <string name="font_style">Font Style</string>
+    <string name="large">Large</string>
+    <string name="medium">Medium</string>
+    <string name="small">Small</string>
+    <string name="enable_dark_theme">Enable Dark Theme</string>
 </resources>

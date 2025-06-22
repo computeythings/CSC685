@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/lans"
-        android:title="New Entry" />
+        android:id="@+id/nav_entry"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="Entry" />
     <item
-        android:id="@+id/maps"
-        android:title="Journals" />
+        android:id="@+id/nav_journal"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Journal" />
     <item
-        android:id="@+id/settings"
+        android:id="@+id/nav_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:title="Settings" />
 </menu>

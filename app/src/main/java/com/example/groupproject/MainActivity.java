@@ -1,10 +1,10 @@
 package com.example.groupproject;
 
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -17,16 +17,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SettingManager settingsManager = new SettingManager(this);
+        if (settingsManager.isDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         BottomNavigationView nav = findViewById(R.id.bottomNav);
-        // Only create new Fragments on initial creation
+
         if (savedInstanceState == null) {
             entryFrag = new EntryFrag();
             journalsFrag = new JournalsFrag();
@@ -37,16 +47,17 @@ public class MainActivity extends AppCompatActivity {
 
         nav.setOnItemSelectedListener(item -> {
             int itemID = item.getItemId();
-            if (itemID == R.id.lans)
+            if (itemID == R.id.nav_entry)
                 setCurrentFragment(entryFrag);
-            if (itemID == R.id.maps)
+            else if (itemID == R.id.nav_journal)
                 setCurrentFragment(journalsFrag);
-            if (itemID == R.id.settings)
+            else if (itemID == R.id.nav_settings)
                 setCurrentFragment(settingsFrag);
             return true;
         });
     }
-    private void setCurrentFragment(Fragment fragment) {
+
+    public void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.contentFrame, fragment)

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="primaryColor">#007AFF</color>
+    <color name="primaryDarkColor">#0051A8</color>
+    <color name="accentColor">#34C759</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="surfaceColor">#F9F9F9</color>
+    <color name="dividerColor">#E0E0E0</color>
+    <color name="textPrimary">#1C1C1E</color>
+    <color name="textSecondary">#8E8E93</color>
+    <color name="buttonBackground">#007AFF</color>
+    <color name="buttonTextColor">#FFFFFF</color>
+    <color name="navSelected">#007AFF</color>
+    <color name="navUnselected">#B0B0B0</color>
 </resources>

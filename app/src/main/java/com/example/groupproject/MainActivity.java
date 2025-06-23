@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private Fragment entryFrag, journalsFrag, settingsFrag;
+    private Fragment currentFragment, entryFrag, journalsFrag, settingsFrag;
     private BottomNavigationView nav;
     public static final String ENTRY_TAG = "ENTRY";
     public static final String JOURNALS_TAG = "JOURNALS";
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             // Use existing fragments on resume
             entryFrag = getSupportFragmentManager().findFragmentByTag(ENTRY_TAG);
             journalsFrag = getSupportFragmentManager().findFragmentByTag(JOURNALS_TAG);
-            settingsFrag =getSupportFragmentManager().findFragmentByTag(SETTINGS_TAG);
+            settingsFrag = getSupportFragmentManager().findFragmentByTag(SETTINGS_TAG);
         }
 
         nav.setOnItemSelectedListener(item -> {
@@ -81,17 +81,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void setCurrentFragment(Fragment fragment, String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        // Hide all non-current fragments
-        if (entryFrag != null) { transaction.hide(entryFrag); }
-        if (journalsFrag != null) { transaction.hide(journalsFrag); }
-        if (settingsFrag != null) { transaction.hide(settingsFrag); }
-
+        if (currentFragment != null) {
+            // detach current fragment
+            transaction.detach(currentFragment);
+        }
+        currentFragment = fragment;
         // Add the fragment to the fragment manager if not already added
         if (!fragment.isAdded()) {
             transaction.add(R.id.contentFrame, fragment, tag);
         }
         // Show fragment
-        transaction.show(fragment);
+        transaction.attach(fragment);
         transaction.commit();
     }
 }

@@ -23,9 +23,16 @@ public class JournalsFrag extends Fragment {
         View root = inflater.inflate(R.layout.journals_frag, container, false);
         journalList = root.findViewById(R.id.journalList);
         emptyMessage = root.findViewById(R.id.emptyMessage);
-        dbHelper = new DBHelper(requireContext());
-        loadJournalEntries();
+        if (dbHelper == null) {
+            dbHelper = new DBHelper(inflater.getContext());
+        }
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadJournalEntries();
     }
 
     public void loadJournalEntries() {

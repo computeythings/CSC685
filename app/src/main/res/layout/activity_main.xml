@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
     <!-- App Title -->
@@ -18,7 +17,6 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#000000"
         android:padding="16dp" />
 
     <!-- Placeholder for Fragments -->
@@ -26,15 +24,13 @@
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#F5F5F5" />
+        android:layout_weight="1" />
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         android:elevation="8dp"
         app:menu="@menu/main_nav"
         app:labelVisibilityMode="labeled" />
